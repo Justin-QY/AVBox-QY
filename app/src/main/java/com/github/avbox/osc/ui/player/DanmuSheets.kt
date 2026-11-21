@@ -31,6 +31,7 @@ import com.github.avbox.osc.api.DanmakuApi
 import com.github.avbox.osc.bean.DanmuSearchResult
 import com.github.avbox.osc.player.state.DanmuSearchSheetState
 import com.github.avbox.osc.player.state.DanmuSettingSheetState
+import com.github.avbox.osc.ui.components.SettingsSwitch
 import com.github.avbox.osc.util.DanmuSettingsState
 import kotlinx.coroutines.launch
 
@@ -69,6 +70,15 @@ fun DanmuSettingSheet(sheet: DanmuSettingSheetState, onDismiss: () -> Unit) {
                 sheet.onSettingsApplied(forColor)
             }
 
+            SheetLabelRow(stringResource(R.string.settings_danmu_switch)) {
+                SettingsSwitch(
+                    checked = DanmuSettingsState.open,
+                    onCheckedChange = { checked ->
+                        DanmuSettingsState.open = checked
+                        postSettings(true)
+                    },
+                )
+            }
             SheetLabelRow(stringResource(R.string.danmu_online)) {
                 SheetButton(
                     text = stringResource(R.string.common_search),
